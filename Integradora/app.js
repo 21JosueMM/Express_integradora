@@ -5,7 +5,7 @@ var cookieParser = require('cookie-parser');
 var logger = require('morgan');
 const mongoose = require("mongoose");
 
-//mongoose.connect("mongodb+srv://Josue:$7L!fX2!sN56whf@cluster0.evygslu.mongodb.net/MPG");
+
 
 const mongodbConnString = `mongodb+srv://${process.env.USER_NAME}:${process.env.PASSWORD}@${process.env.CLUSTER_NAME}.evygslu.mongodb.net/${process.env.DB_NAME}`
 mongoose.connect(mongodbConnString)
