@@ -38,4 +38,4 @@ UsuarioSchema.methods.generadorJWT = function(){
     }, 'c0ntr4s3n14');
 }
 
-mongoose.model("Usuario",UsuarioSchema);
+mongoose.model("usuario",UsuarioSchema);

@@ -1,7 +1,8 @@
 const express = require('express');
 const router = express.Router();
 const { body, param, validationResult } = require('express-validator');
-const Product = require('./producto');
+const Product = require('../models/materiaPrima');
+//const Product = require('./producto');
 
 // Obtener todos los productos
 router.get('/', async function(req, res) {
@@ -37,7 +38,7 @@ router.get('/:id', [
 router.post('/', [
   body('materiaPrima').notEmpty().withMessage('La materia prima es requerida'),
   body('fechaRecepcion').isDate().withMessage('La fecha de recepción debe ser una fecha válida'),
-  body('cantidadRecibida').isFloat({ gt: 0 }).withMessage('La cantidad recibida debe ser un número mayor que 0'),
+  body('cantidadRecibida').isInt({ gt: 0 }).withMessage('La cantidad recibida debe ser un número mayor que 0'),
   body('numeroLote').notEmpty().withMessage('El número de lote es requerido'),
   body('fechaCaducidad').isDate().withMessage('La fecha de caducidad debe ser una fecha válida')
 ], async (req, res) => {
@@ -60,7 +61,7 @@ router.put('/:id', [
   param('id').isMongoId().withMessage('ID de producto no válido'),
   body('materiaPrima').optional().notEmpty().withMessage('La materia prima es requerida'),
   body('fechaRecepcion').optional().isDate().withMessage('La fecha de recepción debe ser una fecha válida'),
-  body('cantidadRecibida').optional().isFloat({ gt: 0 }).withMessage('La cantidad recibida debe ser un número mayor que 0'),
+  body('cantidadRecibida').optional().isInt({ gt: 0 }).withMessage('La cantidad recibida debe ser un número mayor que 0'),
   body('numeroLote').optional().notEmpty().withMessage('El número de lote es requerido'),
   body('fechaCaducidad').optional().isDate().withMessage('La fecha de caducidad debe ser una fecha válida')
 ], async (req, res) => {

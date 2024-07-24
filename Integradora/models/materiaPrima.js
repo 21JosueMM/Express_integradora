@@ -1,6 +1,6 @@
 const mongoose = require('mongoose');
 
-const productSchema = new mongoose.Schema({
+const materiaPrimaSchema = new mongoose.Schema({
   materiaPrima: {
     type: String,
     required: true
@@ -23,6 +23,6 @@ const productSchema = new mongoose.Schema({
   }
 });
 
-const Product = mongoose.model('Product', productSchema);
+const Materia_prima = mongoose.model('Materia_Prima', materiaPrimaSchema);
 
-module.exports = Product;
+module.exports = Materia_prima;
