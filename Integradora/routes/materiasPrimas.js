@@ -4,8 +4,10 @@ const { body, param, validationResult } = require('express-validator');
 const Product = require('../models/materiaPrima');
 //const Product = require('./producto');
 
+let autentificar = require("../middleware/autentificajwt");
+
 // Obtener todos los productos
-router.get('/', async function(req, res) {
+router.get('/', autentificar, async function(req, res) {
   try {
     const products = await Product.find({});
     res.send(products);
@@ -17,7 +19,7 @@ router.get('/', async function(req, res) {
 // Obtener un producto por ID
 router.get('/:id', [
   param('id').isMongoId().withMessage('ID de producto no válido')
-], async (req, res) => {
+], autentificar, async (req, res) => {
   const errors = validationResult(req);
   if (!errors.isEmpty()) {
     return res.status(400).json({ errors: errors.array() });
@@ -41,7 +43,7 @@ router.post('/', [
   body('cantidadRecibida').isInt({ gt: 0 }).withMessage('La cantidad recibida debe ser un número mayor que 0'),
   body('numeroLote').notEmpty().withMessage('El número de lote es requerido'),
   body('fechaCaducidad').isDate().withMessage('La fecha de caducidad debe ser una fecha válida')
-], async (req, res) => {
+], autentificar, async (req, res) => {
   const errors = validationResult(req);
   if (!errors.isEmpty()) {
     return res.status(400).json({ errors: errors.array() });
@@ -64,7 +66,7 @@ router.put('/:id', [
   body('cantidadRecibida').optional().isInt({ gt: 0 }).withMessage('La cantidad recibida debe ser un número mayor que 0'),
   body('numeroLote').optional().notEmpty().withMessage('El número de lote es requerido'),
   body('fechaCaducidad').optional().isDate().withMessage('La fecha de caducidad debe ser una fecha válida')
-], async (req, res) => {
+], autentificar, async (req, res) => {
   const errors = validationResult(req);
   if (!errors.isEmpty()) {
     return res.status(400).json({ errors: errors.array() });
@@ -84,7 +86,7 @@ router.put('/:id', [
 // Eliminar un producto por ID
 router.delete('/:id', [
   param('id').isMongoId().withMessage('ID de producto no válido')
-], async (req, res) => {
+], autentificar, async (req, res) => {
   const errors = validationResult(req);
   if (!errors.isEmpty()) {
     return res.status(400).json({ errors: errors.array() });
