@@ -8,6 +8,7 @@ const path = require('path');
 const cookieParser = require('cookie-parser');
 const logger = require('morgan');
 const mongoose = require('mongoose');
+const cors = require('cors');
 const dotenv = require('dotenv');
 const fs = require('fs');
 const https = require('https');
@@ -30,6 +31,9 @@ mongoose.connect(mongodbConnString)
 const indexRouter = require('./routes/index');
 const usuariosRouter = require('./routes/usuarios');
 const materiasPrimasRouter = require('./routes/materiasPrimas');
+const customersRouter = require('./routes/customers');
+const ordersRouter = require('./routes/orders');
+const productsRouter = require('./routes/products');
 
 // Configuración de vistas y otros middlewares
 app.set('views', path.join(__dirname, 'views'));
@@ -41,9 +45,20 @@ app.use(express.urlencoded({ extended: false }));
 app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
 
+app.use(cors({
+  "origin": "*",
+  "methods": "GET,PUT,POST,DELETE",
+  "preflightContinue": false,
+  "optionsSuccessStatus": 204
+}));
+
+
 app.use('/', indexRouter);
 app.use('/usuarios', usuariosRouter);
 app.use('/materiasPrimas', materiasPrimasRouter);
+app.use('/customers', customersRouter);
+app.use('/orders', ordersRouter);
+app.use('/products', productsRouter);
 
 app.use(function(req, res, next) {
   next(createError(404));

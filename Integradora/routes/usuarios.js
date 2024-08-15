@@ -117,7 +117,7 @@ router.post("/login",/* requisitos para iniciar sesion password (validaciones)->
 
  //let jwtoken = usu.generadorJWT();
  let usu_enviado={
-    msj:"Bienvenido",
+    msj:"Bienvenido!!!",
     email: usu.usuario,
     jwtoken:  usu.generadorJWT()
  };

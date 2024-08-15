@@ -12,7 +12,7 @@ function auntentifica(req,res,next){
         next();
     }
     catch(e){
-        res.status(400).send('Acceso denegado. Token no valido');
+        res.status(401).send('Acceso denegado. Token no valido');
     }
 }
 

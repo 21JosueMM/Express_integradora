@@ -39,10 +39,10 @@ router.get('/:id', [
 // Crear un nuevo producto
 router.post('/', [
   body('materiaPrima').notEmpty().withMessage('La materia prima es requerida'),
-  body('fechaRecepcion').isDate().withMessage('La fecha de recepción debe ser una fecha válida'),
+  body('fechaRecepcion').isISO8601().withMessage('La fecha de recepción debe ser una fecha válida en formato ISO (YYYY-MM-DD).'),
   body('cantidadRecibida').isInt({ gt: 0 }).withMessage('La cantidad recibida debe ser un número mayor que 0'),
   body('numeroLote').notEmpty().withMessage('El número de lote es requerido'),
-  body('fechaCaducidad').isDate().withMessage('La fecha de caducidad debe ser una fecha válida')
+  body('fechaCaducidad').isISO8601().withMessage('La fecha de caducidad debe ser una fecha válida en formato ISO (YYYY-MM-DD).')
 ], autentificar, async (req, res) => {
   const errors = validationResult(req);
   if (!errors.isEmpty()) {
